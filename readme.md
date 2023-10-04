@@ -16,10 +16,10 @@ As far as Windows goes, I don't know! Let me know if it works for you :)=
 ```bash
 git clone https://github.com/abkhur/liltracer.git && cd liltracer
 clang++ -o liltracer -Wall -Wextra main.cc
-./liltracer > image.ppm
+./liltracer > whatever_you_want.ppm
 ```
-From there, you can view the image in the image viewer of your choice!
-I recommend [nomacs](https://github.com/nomacs/nomacs).
+From there, the program will spit out a *.ppm file in the folder where the program is located. You can view the image in the image viewer of your choice.
+However, I recommend [nomacs](https://github.com/nomacs/nomacs).
 
 ##
 ### Default Output
