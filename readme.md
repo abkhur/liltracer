@@ -6,4 +6,4 @@ Based off the guide *Raytracing in One Weekend*, which has been an invaluable so
 If you have any questions or comments, feel free to shoot me a message either via email or thru Discord!
 
 email: abkhur@vt.edu
-\ndiscord: @joechillw0rld
+discord: @joechillw0rld
