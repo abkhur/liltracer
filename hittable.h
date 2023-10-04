@@ -2,6 +2,7 @@
 #define HITTABLE_H
 
 #include "ray.h"
+#include "liltracer.h"
 
 /*
 hittable abstract class
@@ -11,10 +12,13 @@ written by: abdullah khurram
 date: 10/03/2023
 */
 
+class material;
+
 class hit_record {
     public:
         point3 p;
         vec3 normal;
+        shared_ptr<material> mat;
         double t;
         bool front_face;
 
