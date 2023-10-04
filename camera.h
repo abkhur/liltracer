@@ -21,6 +21,8 @@ class camera {
         /*image initialization*/
         double aspectRatio = 1.0; //my laptop has a 16:9 aspect ratio so that's what you're getting
         int image_width = 100;
+        int samples_per_pixel = 10; // amnt of random samples per pixel
+
         void render(const hittable& world) {
             initialize();
 
@@ -30,12 +32,12 @@ class camera {
             for (int i = 0; i < imageHeight; ++i) {
                 std::clog << "\rScanlines remaining: " << (imageHeight - i) << ' ' << std::flush;
                 for (int j = 0; j < image_width; ++j) {
-                    auto pixelCenter = pixel00Location + (j * pixel_delta_u) + (i * pixel_delta_v);
-                    auto rayDirection = pixelCenter - center;
-                    ray r(center, rayDirection);
-
-                    color pixelColor = ray_color(r, world);
-                    write_color(std::cout, pixelColor);
+                    color pixel_color(0,0,0);
+                    for (int sample = 0; sample < samples_per_pixel; ++sample) {
+                        ray r = get_ray(j, i);
+                        pixel_color += ray_color(r, world);
+                    }
+                    write_color(std::cout, pixel_color, samples_per_pixel);
                 }
             }
             std::clog << "\rDone.                 \n";
@@ -73,10 +75,29 @@ class camera {
             pixel00Location = viewport_upper_left + 0.5 * (pixel_delta_u+pixel_delta_v);
         }
 
-        color ray_color(const ray& r, const hittable& world) {
+        ray get_ray(int i, int j) const {
+            /*gets a random camera ray for pixel at (i,j)*/
+            auto pixel_center = pixel00Location+(i*pixel_delta_u)+(j*pixel_delta_v);
+            auto pixel_sample = pixel_center + pixel_sample_square();
+
+            auto ray_origin = center;
+            auto ray_direction = pixel_sample - ray_origin;
+
+            return ray(ray_origin, ray_direction);
+        }
+
+        vec3 pixel_sample_square() const {
+            /*returns a random point in the square surrounding a pixel*/
+            auto px = -0.5 + random_double();
+            auto py = -0.5 + random_double();
+            return (px*pixel_delta_u) + (py*pixel_delta_v);
+        }
+
+        color ray_color(const ray& r, const hittable& world) const {
             hit_record rec;
+
             if (world.hit(r, interval(0, infinity), rec)) {
-                return 0.5* (rec.normal + color(1,1,1));
+                return 0.5 * (rec.normal + color(1,1,1));
             }
 
             vec3 unit_direction = unit_vector(r.direction());
