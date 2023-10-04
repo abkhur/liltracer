@@ -28,7 +28,7 @@ This is the default output for the program. You can mess around with it, though.
 
 ![default output](https://i.ibb.co/kQkV7MZ/image.png)
 
-By default, this program will spit out a 1280x780 image. Keep that in mind. This thing's like a graphics slowcooker. You can lower the resolution by fiddling around with variables in ```main.cc```.
+By default, this program will spit out a 1280x780 image. Keep that in mind. This thing's like a graphics slowcooker, basically. You can lower the resolution by fiddling around with variables in ```main.cc```.
 #
 ### Contact info
 
